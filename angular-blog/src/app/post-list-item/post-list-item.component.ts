@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Post } from '../../models/Post.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostsService } from '../services/posts.service';
@@ -10,27 +10,32 @@ import { PostsService } from '../services/posts.service';
 })
 export class PostListItemComponent implements OnInit {
 
+  @Input() index: number;
   post: Post;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              public postsService: PostsService) { }
+  constructor(public postsService: PostsService) {
+  }
 
   ngOnInit() {
-    this.post = new Post('', '', 0, Date.now().toString() );
-    const id = this.route.snapshot.params['id'];
-    this.postsService.getSinglePost(+id).then(
+    this.post = new Post('', '', 0, Date.now().toString());
+    this.postsService.getSinglePost(+this.index).then(
       (post: Post) => {
         this.post = post;
       }
     );
   }
 
-  onBack() {
-    this.router.navigate(['/posts']);
-  }
-
   onDeletePost(post: Post) {
     this.postsService.removePost(post);
   }
+
+
+  onUpLoveIt() {
+    this.postsService.updateLoveIt(this.index, '+');
+  }
+
+  onDownLoveIt() {
+    this.postsService.updateLoveIt(this.index, '-');
+  }
+
 }

@@ -62,19 +62,11 @@ export class PostsService {
     this.emitPosts();
   }
 
-  updateLoveIt(post: Post, change: string) {
-    const postIndexToUpdate = this.posts.findIndex(
-      (postEl) => {
-        if (postEl === post) {
-          return true;
-        }
-      }
-    );
+  updateLoveIt(index: number, change: string) {
     if (change === '+') {
-      this.posts[postIndexToUpdate].loveIts++;
-    } 
-    else if (change === '-') {
-      this.posts[postIndexToUpdate].loveIts--;
+      this.posts[index].loveIts++;
+    } else if (change === '-') {
+      this.posts[index].loveIts--;
     }
     this.savePosts();
     this.emitPosts();

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css']
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit, OnDestroy {
 
   posts: Post[];
   postsSubscription: Subscription;
@@ -30,22 +30,6 @@ export class PostListComponent implements OnInit {
 
   onNewPost() {
     this.router.navigate(['/posts', 'new']);
-  }
-
-  onDeletePost(post: Post) {
-    this.postsService.removePost(post);
-  }
-
-  onViewPost(id: number) {
-    this.router.navigate(['/posts', 'view', id]);
-  }
-
-  onUpLoveIt(post: Post) {
-    this.postsService.updateLoveIt(post, '+');
-  }
-
-  onDownLoveIt(post: Post) {
-    this.postsService.updateLoveIt(post, '-');
   }
 
   ngOnDestroy() {

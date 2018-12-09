@@ -1,12 +1,18 @@
-<div class="row">
-  <div class="col-xs-12" [ngClass]="{'list-group-item': true,
-                                    'list-group-item-success': post.loveIts > 0,
-                                    'list-group-item-danger': post.loveIts < 0}">
-    <h2>{{ post.title }}</h2>
-    <p>{{ post.createdAt | date: "short" }}</p>
-    <p>{{ post.content }}</p>
-    <button type="button"
-            [ngClass]="{'btn btn-danger': true}"
-            (click)="onDeletePost(post)">Supprimer</button>
-  </div>
+<div [ngClass]="{'list-group-item': true,
+  'list-group-item-success': post.loveIts > 0,
+  'list-group-item-danger': post.loveIts < 0}">
+  <h3 class="list-group-item-heading">{{ post.title }}</h3>
+  <p>{{ post.createdAt | date: "short" }}</p>
+  <p class="list-group-item-text">{{ post.content }}</p><br>
+  <p>Note : {{ post.loveIts }}</p>
+  <button type="button"
+          [ngClass]="{'btn btn-success': true}"
+          (click)="onUpLoveIt(post)">Love it!</button>
+  <button type="button"
+          [ngClass]="{'btn btn-danger': true}"
+          (click)="onDownLoveIt(post)">Don't love it!</button>
+  <button type="button"
+          [ngClass]="{'btn btn-danger': true}"
+          (click)="onDeletePost(post)">Supprimer</button>
+
 </div>
